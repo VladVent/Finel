@@ -1,0 +1,21 @@
+﻿@using database.DataModel
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<database.DataModel.StatisticsAdmin>
+    @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+       ViewData["Title"] = "Адмін";
+    }
+
+    <h3>
+        @ViewData["name"]
+    </h3>
+    <hr />
+    @foreach (var elem in Model)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading"><a asp-route-name="@elem.Name">@elem.Name</a></div>
+        <div class="panel-body">
+        </div>
+    </div>
+}
+    <hr />

@@ -1,0 +1,46 @@
+﻿@using database.DataModel
+@model IEnumerable<database.DataModel.Game>
+@{
+    ViewData["Title"] = "Головна сторінка";
+}
+<h3>
+    @if (User?.IsInRole("Admin") ?? true)
+    {
+        <a asp-controller="Game" asp-action="AddGame" class="btn btn-success" style="float:right;margin-right:85px;">Додати нову гру</a>
+    }
+</h3>
+<form method="get" asp-controller="Game" asp-action="Ind">
+    <label>Сортувати:</label>
+    <select class="form-control">
+    <option value="">>
+        <li style="float:right;">  <a asp-controller="Game" asp-action="Ind">Зростанням</a></li>
+        </option>
+    </select>>
+
+    <input type="submit" />
+</form>
+<hr />
+@foreach (var elem in Model)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading"><a asp-controller="Game" asp-action="ViewGame" asp-route-name="@elem.Name">@elem.Name</a></div>
+        <div class="panel-body">
+            <br>
+            <img src="../@elem.Img" />
+            @*  <b>Видавець:</b> <a asp-controller="Profile" asp-action="View" asp-route-name="@elem.CurrentGame.GameDev.Name"><span style="font-size: 12px;color: black;">@elem.CurrentGame.GamePub.Name</span></a>
+                <b>Розробник:</b> <a asp-controller="Profile" asp-action="View" asp-route-name="@elem.CurrentGame.GameDev.Name"><span style="font-size: 12px;color: black;">@elem.CurrentGame.GameDev.Name</span></a>*@
+            @if (User?.IsInRole("Admin") ?? true)
+            {
+                <a asp-controller="Admin" asp-action="DeleteGame" asp-route-id="@elem.Id" class="btn btn-warning" style="float:right;">Видалити гру</a>
+            }
+            @if (User?.Identity?.IsAuthenticated ?? true)
+            {
+                <a asp-controller="Game" asp-action="AddLikeGame" asp-route-id="@elem.Id" class="btn btn-warning" style="float:right;">Додати в улюблені</a>
+            }
+            @* <b>Жанр:</b> <a asp-controller="Profile" asp-action="View" asp-route-name="@elem.CurrentGame.Gen.Name"><span style="font-size: 12px;color: black;">@elem.CurrentGame.Gen.Name</span></a>*@
+            <b style="margin-left:5%;">Рік випуску:</b> <span style="font-size: 12px;color: black;">@elem.DateCreate</span>
+            <br />
+            <b></b><span style="font-size: 12px;color: black;">@elem.Description</span>
+        </div>
+    </div>
+}

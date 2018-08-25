@@ -1,0 +1,21 @@
+﻿@using database.DataModel
+@model IEnumerable<database.DataModel.Users>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>
+    @ViewData["name"]
+</h3>
+<hr />
+@foreach (var elem in Model)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading"><a asp-route-name="@elem.UserName">@elem.UserName</a></div>
+        <div class="panel-body">
+            <br>
+            <b>Логін:</b> <a asp-route-name="@elem.Name"><span style="font-size: 12px;color: black;">@elem.Name</span></a>
+        </div>
+    </div>
+}
+<hr />

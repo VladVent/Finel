@@ -1,0 +1,21 @@
+﻿@using database.DataModel
+@model IEnumerable<database.DataModel.LikeGame>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+ 
+}
+
+<h3>
+    @ViewData["name"]
+</h3>
+    @foreach (var elem in Model)
+    {
+<div class="panel panel-default">
+    <div class="panel-heading"><a asp-route-name="@elem.Games.Name">@elem.Games.Name</a></div>
+    <div class="panel-body">
+    </div>
+</div>
+    }
+<hr />
+
+

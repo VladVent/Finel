@@ -1,0 +1,36 @@
+﻿@using database.DataModel
+@model IEnumerable<database.DataModel.Users>
+@{
+   Layout = "~/Views/Shared/_Layout.cshtml";
+   
+   
+}
+
+<h3>
+</h3>
+<hr />
+@foreach (var elem in Model)
+{
+   <div class="panel panel-default">
+        <div class="panel-heading"><a asp-route-name="@elem.UserName">@elem.UserName</a></div>
+        <div class="panel-body">
+            <br>
+            <b>Логін:</b> <a asp-route-name="@elem.Name"><span style="font-size: 12px;color: black;">@elem.Name</span></a>
+            @if (User?.IsInRole("SubAdmin") ?? true)
+            {
+                @if (ViewData["role"].ToString() != "Admin")
+                {
+                    <a asp-controller="Game" asp-action="AddAdmin" asp-route-name="@elem.UserName" class="btn btn-warning" style="float:right;">Дати роль адміна</a>
+                }
+                else
+                {
+                    <a asp-controller="Game" asp-action="DeleteAdmin" asp-route-name="@elem.Name" class="btn btn-warning" style="float:right;">Забрати роль адміна</a>
+
+                }
+            }
+        </div>
+    </div>
+}
+<hr />
+
+

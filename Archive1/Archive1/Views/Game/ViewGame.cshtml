@@ -1,0 +1,28 @@
+﻿@using database.DataModel
+@model Game
+@{
+    ViewData["Title"] = "Ігри -" + Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3>
+    <br>
+    <img src="../@Model.Img" />
+    @Model.Name <span style="float:right;">Розробник: <a asp-controller="Game" asp-action="ViewDeveloper" asp-route-name="@Model.GameDev.Name">@Model.GameDev.Name</a></span>
+    Жанр: @Model.Genre <br>
+    Видавець: @Model.GamePub <br>
+    @if (User?.Identity?.IsAuthenticated ?? true)
+    {
+        <div class="active">
+        <label for="inputDecription">Коментарі</label>
+        <input type="text" name="Comments" class="form-control" id="inputD" placeholder="Коментарі">
+        </div>
+        <a asp-controller="Game" asp-action="AddComments" class="btn btn-warning" style="float:right;">Додати Коментар</a>
+    }
+    else
+    {
+       <div> Прошу зареєструватися або увійти о системи.
+           </div>
+    }
+</h3>
+<hr />
+<hr />
